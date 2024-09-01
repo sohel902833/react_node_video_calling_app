@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputError from "../utill/InputError";
 import { useSocket } from "../../context/SocketProvider";
 
+function generateRandomId() {
+    const characters = "abcdefghijklmnopqrstuvwxyz";
+    const segments = [3, 4, 3]; // Specifies the length of each segment
+
+    return segments
+        .map((segmentLength) => {
+            return Array.from({ length: segmentLength }, () => {
+                return characters.charAt(
+                    Math.floor(Math.random() * characters.length)
+                );
+            }).join("");
+        })
+        .join("-");
+}
 const initialData = {
-    email: "",
-    roomId: "",
+    name: "",
+    roomName: "",
 };
-const MeetJoinForm = () => {
+
+const MeetJoinForm = ({ onSuccess }) => {
     const [data, setData] = useState(initialData);
     const [errors, setErrors] = useState(initialData);
     const socket = useSocket();
@@ -14,12 +29,12 @@ const MeetJoinForm = () => {
         e.preventDefault();
         const newError = {};
 
-        if (!data.email.trim()) {
-            newError.email = "Please enter your email";
+        if (!data.name.trim()) {
+            newError.name = "Please enter your name";
         }
 
-        if (!data.roomId.trim()) {
-            newError.roomId = "Please enter room id";
+        if (!data.roomName.trim()) {
+            newError.roomName = "Please enter room name";
         }
 
         if (Object.keys(newError).length > 0) {
@@ -28,46 +43,54 @@ const MeetJoinForm = () => {
         }
 
         setErrors(initialData);
-
-        socket.emit("room:join", data);
+        sessionStorage.setItem("username", data.name);
+        onSuccess(data);
     };
+    useEffect(() => {
+        const rand = generateRandomId();
+        const name = `${rand}-User`;
+        setData({
+            name: name,
+            roomName: rand,
+        });
+    }, []);
     return (
         <form onSubmit={handleSubmit} className="card-body">
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Name</span>
                 </label>
                 <input
-                    type="email"
-                    placeholder="email"
+                    type="name"
+                    placeholder="name"
                     className="input input-bordered"
-                    value={data.email}
+                    value={data.name}
                     onChange={(e) => {
-                        setData((prev) => ({ ...prev, email: e.target.value }));
+                        setData((prev) => ({ ...prev, name: e.target.value }));
                     }}
                 />
-                <InputError visible={Boolean(errors.email)}>
-                    {errors.email}
+                <InputError visible={Boolean(errors.name)}>
+                    {errors.name}
                 </InputError>
             </div>
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">Room Id</span>
+                    <span className="label-text">Room Name</span>
                 </label>
                 <input
                     type="text"
-                    placeholder="Room Id"
+                    placeholder="Room Name"
                     className="input input-bordered"
-                    value={data.roomId}
+                    value={data.roomName}
                     onChange={(e) => {
                         setData((prev) => ({
                             ...prev,
-                            roomId: e.target.value,
+                            roomName: e.target.value,
                         }));
                     }}
                 />
-                <InputError visible={Boolean(errors.roomId)}>
-                    {errors.roomId}
+                <InputError visible={Boolean(errors.roomName)}>
+                    {errors.roomName}
                 </InputError>
             </div>
             <div className="form-control mt-6">

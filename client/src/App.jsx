@@ -14,7 +14,7 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<HomeScreen />} />
-                    <Route path="/meet/:roomId" element={<MeetScreen />} />
+                    <Route path="/meet/:roomName" element={<MeetScreen />} />
                 </Routes>
             </Router>
         </SocketProvider>

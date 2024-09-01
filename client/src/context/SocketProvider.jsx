@@ -10,7 +10,9 @@ export const useSocket = () => {
 
 export const SocketProvider = (props) => {
     const socket = useMemo(() => {
-        return io("localhost:8000");
+        // const url = `http://192.168.0.103/stream`;
+        const url = `localhost:3001/stream`;
+        return io(url);
     }, []);
 
     return (
