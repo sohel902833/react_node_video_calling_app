@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Web RTC DEMO</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <section class="flex flex-wrap gap-4">
+            <div
+                id="video_container"
+                class="flex grow basis-[450px] max-w-[450px]"
+            >
+                <video
+                    id="user1VideoElement"
+                    autoplay
+                    muted
+                    class="h-full w-full"
+                ></video>
+            </div>
+        </section>
+        <div class="flex-[1] flex flex-col gap-4">
+            <input
+                type="text"
+                placeholder="User Name"
+                class="rounded-md border border-grey-500 px-3 py-4 mt-3"
+                id="user_name_field"
+            />
+            <button
+                class="bg-purple-500 px-4 py-3 rounded-md"
+                id="create_offer_btn"
+            >
+                Create Offer
+            </button>
+            <textarea
+                placeholder="Created Offer"
+                class="rounded-md border border-grey-500 px-3 py-4"
+                id="display_offer_area"
+            ></textarea>
+
+            <h1 class="mt-4">Create Answer</h1>
+            <input
+                type="text"
+                placeholder="Remote User Name"
+                class="rounded-md border border-grey-500 px-3 py-4 mt-3"
+                id="remote_user_name"
+            />
+            <textarea
+                id="offer_input_area"
+                placeholder="Enter Offer"
+                class="rounded-md border border-grey-500 px-3 py-4"
+            ></textarea>
+            <button
+                class="bg-purple-500 px-4 py-3 rounded-md"
+                id="create_answer_button"
+            >
+                Create Answer
+            </button>
+            <textarea
+                placeholder="Created Answer"
+                class="rounded-md border border-grey-500 px-3 py-4"
+                id="answer_display_area"
+            ></textarea>
+
+            <h1 class="mt-4">Add Answer</h1>
+            <textarea
+                id="answer_input_area"
+                placeholder="Enter Answer"
+                class="rounded-md border border-grey-500 px-3 py-4"
+            ></textarea>
+            <button
+                class="bg-purple-500 px-4 py-3 rounded-md"
+                id="add_answer_button"
+            >
+                Add Answer
+            </button>
+        </div>
+        <script src="./multi-users.js"></script>
+    </body>
+</html>

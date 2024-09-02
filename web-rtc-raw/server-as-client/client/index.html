@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Web RTC DEMO</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <section class="flex items-center gap-2 mx-4 my-3">
+            <div class="flex-[1] flex flex-col gap-3">
+                <video
+                    id="user_one_video"
+                    autoplay
+                    class="h-[250px] w-[250px]"
+                    muted
+                ></video>
+                <input
+                    id="user_name"
+                    placeholder="User Name"
+                    type="text"
+                    class="border border-grey-50 rounded-md p-4"
+                />
+                <input
+                    id="room_name"
+                    placeholder="Room Name"
+                    type="text"
+                    class="border border-grey-50 rounded-md p-4"
+                />
+                <button
+                    class="bg-purple-500 px-4 py-3 rounded-md"
+                    id="create_offer_btn"
+                >
+                    Join
+                </button>
+            </div>
+            <div class="flex-[1] flex flex-col gap-4">
+                <video
+                    id="user_two_video"
+                    autoplay
+                    class="h-[250px] w-[250px]"
+                ></video>
+            </div>
+        </section>
+        <script src="./app.js"></script>
+    </body>
+</html>
